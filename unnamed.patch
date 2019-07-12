@@ -1,0 +1,262 @@
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dataSources.xml	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
++++ .idea/dataSources.xml	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
++    <data-source source="LOCAL" name="auto" uuid="0b24c38b-60d5-477e-8b35-08b930f30709">
++      <driver-ref>mysql</driver-ref>
++      <synchronize>true</synchronize>
++      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
++      <jdbc-url>jdbc:mysql://localhost:3306/auto</jdbc-url>
++      <driver-properties>
++        <property name="autoReconnect" value="true" />
++        <property name="zeroDateTimeBehavior" value="convertToNull" />
++        <property name="tinyInt1isBit" value="false" />
++        <property name="characterEncoding" value="utf8" />
++        <property name="characterSetResults" value="utf8" />
++        <property name="yearIsDateType" value="false" />
++      </driver-properties>
++    </data-source>
++  </component>
++</project>
+\ No newline at end of file
+Index: src/main/java/com/edu/mapper/StudentMapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/edu/mapper/StudentMapper.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
++++ src/main/java/com/edu/mapper/StudentMapper.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
+@@ -0,0 +1,8 @@
++package com.edu.mapper;
++
++import com.edu.pojo.Student;
++
++public interface StudentMapper {
++
++    Student getStudent(String name,String password);
++}
+Index: src/main/java/com/edu/pojo/Brightness.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/edu/pojo/Brightness.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
++++ src/main/java/com/edu/pojo/Brightness.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
+@@ -0,0 +1,40 @@
++package com.edu.pojo;
++
++public class Brightness {
++    private long id;
++    private String data;
++    private String room;
++    private String time;
++
++    public long getId() {
++        return id;
++    }
++
++    public void setId(long id) {
++        this.id = id;
++    }
++
++    public String getData() {
++        return data;
++    }
++
++    public void setData(String data) {
++        this.data = data;
++    }
++
++    public String getRoom() {
++        return room;
++    }
++
++    public void setRoom(String room) {
++        this.room = room;
++    }
++
++    public String getTime() {
++        return time;
++    }
++
++    public void setTime(String time) {
++        this.time = time;
++    }
++}
+Index: src/main/java/com/edu/pojo/Humidity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/edu/pojo/Humidity.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
++++ src/main/java/com/edu/pojo/Humidity.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
+@@ -0,0 +1,40 @@
++package com.edu.pojo;
++
++public class Humidity {
++    private long id;
++    private String data;
++    private String room;
++    private String time;
++
++    public long getId() {
++        return id;
++    }
++
++    public void setId(long id) {
++        this.id = id;
++    }
++
++    public String getData() {
++        return data;
++    }
++
++    public void setData(String data) {
++        this.data = data;
++    }
++
++    public String getRoom() {
++        return room;
++    }
++
++    public void setRoom(String room) {
++        this.room = room;
++    }
++
++    public String getTime() {
++        return time;
++    }
++
++    public void setTime(String time) {
++        this.time = time;
++    }
++}
+Index: src/main/java/com/edu/pojo/Student.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/edu/pojo/Student.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
++++ src/main/java/com/edu/pojo/Student.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
+@@ -0,0 +1,49 @@
++package com.edu.pojo;
++
++public class Student {
++    private long id;
++    private String number;
++    private String password;
++    private String name;
++    private String room;
++
++    public long getId() {
++        return id;
++    }
++
++    public void setId(long id) {
++        this.id = id;
++    }
++
++    public String getNumber() {
++        return number;
++    }
++
++    public void setNumber(String number) {
++        this.number = number;
++    }
++
++    public String getPassword() {
++        return password;
++    }
++
++    public void setPassword(String password) {
++        this.password = password;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++    public String getRoom() {
++        return room;
++    }
++
++    public void setRoom(String room) {
++        this.room = room;
++    }
++}
+Index: src/main/java/com/edu/pojo/Temperature.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/edu/pojo/Temperature.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
++++ src/main/java/com/edu/pojo/Temperature.java	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
+@@ -0,0 +1,40 @@
++package com.edu.pojo;
++
++public class Temperature {
++    private long id;
++    private String data;
++    private String room;
++    private String time;
++
++    public long getId() {
++        return id;
++    }
++
++    public void setId(long id) {
++        this.id = id;
++    }
++
++    public String getData() {
++        return data;
++    }
++
++    public void setData(String data) {
++        this.data = data;
++    }
++
++    public String getRoom() {
++        return room;
++    }
++
++    public void setRoom(String room) {
++        this.room = room;
++    }
++
++    public String getTime() {
++        return time;
++    }
++
++    public void setTime(String time) {
++        this.time = time;
++    }
++}
+Index: src/main/resources/mapper/StudentMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/mapper/StudentMapper.xml	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
++++ src/main/resources/mapper/StudentMapper.xml	(revision a5a8e19984679396f50c691d0e1a4a1a192828c2)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
++<mapper namespace="com.edu.mapper.StudentMapper.java">
++    <select id="getStudent" resultType="com.edu.pojo.Student">
++        select * from students
++        where number = #{number} and password = #{password}
++    </select>
++</mapper>
+\ No newline at end of file
