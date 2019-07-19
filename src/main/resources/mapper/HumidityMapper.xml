@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.mapper.HumidityMapper">
+    <insert id="addHumidity" parameterType="com.edu.pojo.Humidity">
+        insert into humidity(data,room,time) values (#{data},#{room},#{time})
+    </insert>
+
+    <select id="getHumidity" resultType="com.edu.pojo.Humidity">
+        select * from humidity where id = (select max(id) from humidity) and room =#{room}
+    </select>
+    <select id="getAllHumidityByRoom" resultType="com.edu.pojo.Humidity">
+        select * from humidity where room = #{room}
+    </select>
+</mapper>

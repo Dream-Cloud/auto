@@ -46,8 +46,8 @@
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!--引入mappers文件-->
-        <!--<property name="configLocation" value="classpath:spring-mybatis.xml"></property>-->
-        <!--这就要求所有的mapper文件必须在com/edu/example/mapper之下-->
+        <!--<property number="configLocation" value="classpath:spring-mybatis.xml"></property>-->
+        <!--这就要求所有的mapper文件必须在com/edu/mapper之下-->
         <property name="mapperLocations" value="classpath:mapper/**/*.xml"/>
         <property name="configuration">
             <bean class="org.apache.ibatis.session.Configuration">
@@ -79,7 +79,7 @@
     <!--持久层接口-->
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.edu.example.mapper"/>
+        <property name="basePackage" value="com.edu.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
     </bean>
 

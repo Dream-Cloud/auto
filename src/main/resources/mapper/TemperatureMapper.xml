@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.mapper.TemperatureMapper">
+    <insert id="addTem" parameterType="com.edu.pojo.Temperature">
+        insert into temperature(data,room,time) values (#{data},#{room},#{time})
+    </insert>
+
+    <select id="getTem" resultType="com.edu.pojo.Temperature">
+        select * from temperature where id = (select max(id) from temperature) and room =#{room}
+    </select>
+    <select id="getAllByRoom" resultType="com.edu.pojo.Temperature">
+        select * from temperature where room = #{room}
+    </select>
+</mapper>

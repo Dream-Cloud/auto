@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.mapper.BrightnessMapper">
+    <insert id="addBright" parameterType="com.edu.pojo.Brightness">
+        insert into brightness(data,room,time) values (#{data},#{room},#{time})
+    </insert>
+
+    <select id="getBright" resultType="com.edu.pojo.Brightness">
+        select * from brightness where id = (select max(id) from brightness) and room =#{room}
+    </select>
+    <select id="getAllBrightByRoom" resultType="com.edu.pojo.Brightness">
+        select * from brightness where room = #{room}
+    </select>
+</mapper>

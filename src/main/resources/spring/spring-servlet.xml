@@ -48,7 +48,7 @@
     <!--/*只能拦截一层-->
     <!--&ndash;&gt;-->
     <!--<mvc:mapping path="/**/*"/>-->
-    <!--<bean class="com.edu.example.interceptors.MethodTimerInterceptor">-->
+    <!--<bean class="com.edu.interceptors.MethodTimerInterceptor">-->
 
     <!--</bean>-->
     <!--</mvc:interceptor>-->
@@ -56,7 +56,7 @@
     <!--<mvc:mapping path="/user/**/*"/>-->
     <!--&lt;!&ndash;排除登录的URI&ndash;&gt;-->
     <!--<mvc:exclude-mapping path="/user/login"/>-->
-    <!--<bean class="com.edu.example.interceptors.SessionInterceptor">-->
+    <!--<bean class="com.edu.interceptors.SessionInterceptor">-->
 
     <!--</bean>-->
     <!--</mvc:interceptor>-->
