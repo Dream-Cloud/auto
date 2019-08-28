@@ -6,6 +6,8 @@ import com.edu.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
@@ -18,5 +20,31 @@ public class StudentServiceImpl implements StudentService {
             return studentMapper.getStudent(number,password);
         }
         return null;
+    }
+
+    @Override
+    public List<Student> getStudentByRoom(String room) {
+        return studentMapper.selectByRoom(room);
+    }
+
+    @Override
+    public List<Student> getAll() {
+        return studentMapper.getAll();
+    }
+
+    @Override
+    public boolean addStudent(Student student) {
+        int row = studentMapper.addStudent(student);
+        return row == 1 ? true:false;
+    }
+
+    @Override
+    public boolean deleteStudent(Student student) {
+        return studentMapper.deleteStudent(student) == 1 ? true:false;
+    }
+
+    @Override
+    public boolean updateStudent(Student student) {
+        return studentMapper.updateStudent(student) == 1 ? true:false;
     }
 }

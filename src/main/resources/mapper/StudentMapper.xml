@@ -27,6 +27,9 @@
             <if test="room != null">
                 room = #{room},
             </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
         </set>
         <where>
             number = #{number}
@@ -41,11 +44,19 @@
 
     <select id="selectByRoom" resultType="com.edu.pojo.Student">
         select * from students
-        where room = #{room}
+        <where>
+            1=1
+        <if test="room != null">
+            and room = #{room}
+        </if>
+        </where>
     </select>
 
     <select id="getAll" resultType="com.edu.pojo.Student">
         select * from students
+    </select>
+    <select id="getRoomList" resultType="java.lang.String">
+        select distinct room from students;
     </select>
 
 </mapper>

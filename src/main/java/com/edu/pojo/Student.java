@@ -5,7 +5,17 @@ public class Student {
     private String number;
     private String password;
     private String name;
+    private String phone;
     private String room;
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public long getId() {
         return id;
