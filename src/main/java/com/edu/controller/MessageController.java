@@ -8,31 +8,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.TextMessage;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Controller("/webSocket")
-public class SocketController {
+@RequestMapping("/message")
+public class MessageController {
 
     @Autowired
     private WebSocketServiceImpl webSocketService;
 
-
-    @RequestMapping("/login")
-    public String login(HttpSession session, String username, String password ) {
-        session.setAttribute("username", username);
+    @RequestMapping("/getUsersList")
+    public  @ResponseBody Set<String> getUsersList(){
         Set<String> usersList  = webSocketService.usersList();
-        session.setAttribute("usersList", usersList);
-        Set<String> roomsList  = webSocketService.roomsList();
-        session.setAttribute("usersList", roomsList);
-        if (username.equals("admin")  && password.equals("123456")){
-            return "index";
-        }
-        //System.out.println("登录接口,username="+username);
-
-        return "success";
+        return usersList;
     }
 
-    @RequestMapping("/messageAll")
+    @RequestMapping("/getRoomsList")
+    public  @ResponseBody Set<String> getRoomsList(){
+        Set<String> roomsList  = webSocketService.roomsList();
+        return roomsList;
+    }
+
+
+    @RequestMapping("/messageAllUser")
     public @ResponseBody int sendMessageAll(String text) {
         boolean flag = webSocketService.sendMessageToAllUsers(new TextMessage(text));
         System.out.println(flag);
@@ -46,14 +46,13 @@ public class SocketController {
     }
 
     @RequestMapping("/messageToUser")
-    public @ResponseBody String sendMessageToUser(String clientId,String text) {
-        boolean flag = webSocketService.sendMessageToUser(clientId,new TextMessage(text));
-        System.out.println(flag);
-        if (flag){
-            return "";
-        }else {
-            return "发送";
-        }
+    public @ResponseBody
+    Map<String, Object> sendMessageToUser(String number, String text) {
+        Map<String, Object> result = new HashMap();
+        String flag = webSocketService.sendMessageToUser(number,new TextMessage(text));
+
+        result.put("flag", flag);
+        return result;
     }
 
 }

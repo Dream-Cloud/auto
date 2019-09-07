@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 @Controller("debug")
@@ -22,12 +24,14 @@ public class DebugController {
     @Autowired
     SensorServiceImpl sensorService;
 
+
+
     @RequestMapping("/generateWeekTem")
     @ResponseBody
-    public String test(){
+    public String test(String room){
         String msg = "上传失败";
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2019,7,3,30,34,0);
+        calendar.add(Calendar.DAY_OF_YEAR,-7);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Random rand = new Random();
         DecimalFormat df=new DecimalFormat("#.00");
@@ -36,7 +40,7 @@ public class DebugController {
         for (int i = 0;i<=3024;i++){
 
             Temperature temperature = new Temperature();
-            temperature.setRoom("09142");
+            temperature.setRoom(room);
             temperature.setData(df.format(t+rand.nextDouble()*10));
             temperature.setTime(sdf.format(calendar.getTime()));
             sensorService.putTemperature(temperature);
@@ -46,17 +50,17 @@ public class DebugController {
     }
     @RequestMapping("/generateWeekHum")
     @ResponseBody
-    public String test2(){
+    public String test2(String room){
         String msg = "上传失败";
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2019,7,3,30,34,0);
+        calendar.add(Calendar.DAY_OF_YEAR,-7);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Random rand = new Random();
         DecimalFormat df=new DecimalFormat("#.00");
         double t = 60;
         for (int i = 0;i<=3024;i++){
             Humidity humidity = new Humidity();
-            humidity.setRoom("09142");
+            humidity.setRoom(room);
             humidity.setData(df.format(t+rand.nextDouble()*10));
             humidity.setTime(sdf.format(calendar.getTime()));
             sensorService.putHumidity(humidity);
@@ -66,17 +70,17 @@ public class DebugController {
     }
     @RequestMapping("/generateWeekLight")
     @ResponseBody
-    public String test3(){
+    public String test3(String room){
         String msg = "上传失败";
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2019,7,3,30,34,0);
+        calendar.add(Calendar.DAY_OF_YEAR,-7);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Random rand = new Random();
         DecimalFormat df=new DecimalFormat("#.00");
         double t = 10;
         for (int i = 0;i<=3024;i++){
             Brightness brightness = new Brightness();
-            brightness.setRoom("09142");
+            brightness.setRoom(room);
             brightness.setData(df.format(t+rand.nextDouble()*10));
             brightness.setTime(sdf.format(calendar.getTime()));
             sensorService.putBright(brightness);

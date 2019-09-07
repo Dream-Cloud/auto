@@ -4,8 +4,8 @@
 
     <!--增-->
     <insert id="addStudent" parameterType="com.edu.pojo.Student">
-        insert ignore into students(number,password,name,room)
-        values (#{number},#{password},#{name},#{room})
+        insert ignore into students(number,password,name,room,sex)
+        values (#{number},#{password},#{name},#{room},#{sex})
     </insert>
     <!--删-->
     <delete id="deleteStudent">
@@ -29,6 +29,9 @@
             </if>
             <if test="phone != null">
                 phone = #{phone},
+            </if>
+            <if test="sex != null">
+                phone = #{sex},
             </if>
         </set>
         <where>

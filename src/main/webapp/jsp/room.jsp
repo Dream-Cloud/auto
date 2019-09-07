@@ -12,18 +12,67 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
-    <!--<meta charset="utf-8">-->
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <title>后台大布局</title>
     <link rel="stylesheet" href="${ctx}/static/plugins/layuiadmin/layui/css/layui.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="${ctx}/static/plugins/layuiadmin/lib/extend/echarts.js"></script>
-    <!--<style>-->
+    <style type="text/css">
+        table.dataintable {
+            margin-top:15px;
+            border-collapse:collapse;
+            border:1px solid #aaa;
+            width:100%;
+        }
 
-    <!--body{margin: 10px;}-->
-    <!--.demo-carousel{height: 200px; line-height: 200px; text-align: center;}-->
-    <!--</style>-->
+        table.dataintable th {
+            vertical-align:baseline;
+            padding:10px 10px 10px 10px;
+            background-color:#3F3F3F;
+            border:1px solid #3F3F3F;
+            text-align:left;
+            color:#fff;
+        }
+
+        table.dataintable td {
+            vertical-align:text-top;
+            padding:9px 9px 9px 9px;
+            border:1px solid #aaa;
+        }
+
+        table.dataintable tr:nth-child(odd) {
+            background-color:#F5F5F5;
+        }
+
+        table.dataintable tr:nth-child(even) {
+            background-color:#fff;
+        }
+
+        table.dataintable pre {
+            width:auto;
+            margin:0;
+            padding:0;
+            border:0;
+            background-color:transparent;
+        }
+
+        table.dataintable p {margin:0 0 2px 0;}
+
+        div#maincontent table.dataintable ul, div#maincontent table.dataintable li {
+            list-style-type:none;
+            margin:0;
+            padding:0;
+        }
+
+        table.dataintable td em
+        {
+            color:#0000ff;
+            font-weight:normal;
+        }
+
+        table.dataintable .table_value {color:#0F93D2;}
+
+        .no_wrap {white-space:nowrap;}
+    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -47,13 +96,12 @@
     </div>
 
 
-    <div class="layui-body">
+    <div class="layui-body" style="background-color:#EEEEEE">
         <!-- 内容主体区域 -->
 
         <table lay-filter="test">
             <thead>
             <tr>
-                <th lay-data="{type: 'checkbox', fixed: 'left'}"></th>
                 <th lay-data="{field: 'room', sort: true}">宿舍</th>
                 <th lay-data="{field: 'temperature'}">温度</th>
                 <th lay-data="{field: 'brightness'}">亮度</th>
@@ -61,9 +109,6 @@
                 <th lay-data="{field: 'electric'}">用电量</th>
                 <th lay-data="{fixed: 'right',width: 250, align:'center', toolbar: '#barDemo'}">图表</th>
                 <th lay-data="{fixed: 'right',width: 80, align:'center', toolbar: '#barDemo1'}">空调</th>
-                <th lay-data="{fixed: 'right',width: 80, align:'center', toolbar: '#barDemo2'}">加湿器</th>
-                <th lay-data="{fixed: 'right',width: 80, align:'center', toolbar: '#barDemo3'}">灯</th>
-                <th lay-data="{fixed: 'right',width: 80, align:'center', toolbar: '#barDemo4'}">电源</th>
             </tr>
             </thead>
         </table>
@@ -77,40 +122,220 @@
         </script>
 
         <script type="text/html" id="barDemo1">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="ctem"><span id="temc">关闭</span></a>
-            </script>
-        <script type="text/html" id="barDemo2">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="chum"><span id="humc">关闭</span></a>
-            </script>
-        <script type="text/html" id="barDemo3">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="clight"><span id="lightc">关闭</span></a>
-        </script>
-        <script type="text/html" id="barDemo4">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="cele"><span id="elec">关闭</span></a>
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="control">控制</a>
         </script>
     </div>
-    <div id="temChart" style="display: none;">
+    <div id="Chart" style="display: none;">
         <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-        <div id="temChartMain" style="width: 1200px; height: 400px;"></div>
+        <div id="ChartMain" style="width: 1200px; height: 400px;"></div>
     </div>
-    <div id="humChart" style="display: none;">
-        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-        <div id="humChartMain" style="width: 1200px; height: 400px;"></div>
+
+    <div class="layui-fluid" id="control" style="display: none;">
+
+        <div class="layui-row layui-col-space5">
+            <div class="layui-col-md12">
+                <div class="layui-row grid-demo">
+                    <div class="layui-col-md6">
+                        <label class="layui-form-label">空调</label>
+                    </div>
+                    <div class="layui-col-md6">
+                        <button id="temBtn" class="layui-btn layui-btn-normal" onclick="temBtn()">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row layui-col-space5">
+            <div class="layui-col-md12">
+                <div class="layui-row grid-demo">
+                    <div class="layui-col-md6">
+                        <label class="layui-form-label">加湿器</label>
+                    </div>
+                    <div class="layui-col-md6">
+                        <button id="humBtn" class="layui-btn layui-btn-normal" onclick="humBtn()">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row layui-col-space5">
+            <div class="layui-col-md12">
+                <div class="layui-row grid-demo">
+                    <div class="layui-col-md6">
+                        <label class="layui-form-label">电灯</label>
+                    </div>
+                    <div class="layui-col-md6">
+                        <button id="lightBtn" class="layui-btn layui-btn-normal" onclick="lightBtn()">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div id="lightChart" style="display: none;">
-        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-        <div id="lightChartMain" style="width: 1200px; height: 400px;"></div>
-    </div>
-    <div id="elecChart" style="display: none;">
-        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-        <div id="elecChartMain" style="width: 600px; height: 400px;"></div>
-    </div>
+
     <div class="layui-footer">
         <!-- 底部固定区域 -->
         © layui.com - 底部固定区域
     </div>
 </div>
+<script>
+    function temBtn(){
+        $.ajax({
+            url:'${ctx}/room/gets',
+            type:'get',
+            success:function (data) {
+                var i=0;
+                if (data.ts=="开启") {
+                    i= i+1
+                }
+                if (data.hs=="开启") {
+                    i=i+2
+                }
+                if (data.ls=="开启") {
+                    i=i+4
+                }
 
+                if (data.ls=="关闭"){
+                    $.ajax({
+                        url:'${ctx}/room/controlOn',
+                        type:'post',
+                        data:{
+                            control:1,
+                            s:i
+                        },
+                        success:function () {
+                            $('#temBtn').html("");
+                            $('#temBtn').html("开启");
+                        }
+                    });
+
+                }else {
+                    $.ajax({
+                        url:'${ctx}/room/controlOff',
+                        type:'post',
+                        data:{
+                            control:1,
+                            s:i
+                        },
+                        success:function () {
+                            $('#temBtn').html("");
+                            $('#temBtn').html("关闭");
+                        }
+                    });
+                }
+
+            }
+        });
+
+    }
+    function humBtn(){
+        $.ajax({
+            url:'${ctx}/room/gets',
+            type:'get',
+            success:function (data) {
+                var i=0;
+                if (data.ts=="开启") {
+                    i=i+1
+                }
+                if (data.hs=="开启") {
+                    i=i+2;
+                }
+                if (data.ls=="开启") {
+                    i=i+4
+                }
+                if (data.ls=="关闭"){
+                    $.ajax({
+                        url:'${ctx}/room/controlOn',
+                        type:'post',
+                        data:{
+                            control:2,
+                            s:i
+                        },
+                        success:function () {
+                            $('#humBtn').html("");
+                            $('#humBtn').html("开启");
+                        }
+                    });
+
+                }else {
+                    $.ajax({
+                        url:'${ctx}/room/controlOff',
+                        type:'post',
+                        data:{
+                            control:2,
+                            s:i
+                        },
+                        success:function () {
+                            $('#humBtn').html("");
+                            $('#humBtn').html("关闭");
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+    function lightBtn(){
+        $.ajax({
+            url:'${ctx}/room/gets',
+            type:'get',
+            success:function (data) {
+                var i=0;
+                if (data.ts=="开启") {
+                    i=i+1
+                }
+                if (data.hs=="开启") {
+                    i= i+2
+                }
+                if (data.ls=="开启") {
+                    i= i+4
+                }
+                if (data.ls=="关闭"){
+                    $.ajax({
+                        url:'${ctx}/room/controlOn',
+                        type:'post',
+                        data:{
+                            control:4,
+                            s:i
+                        },
+                        success:function () {
+                            $('#lightBtn').html("");
+                            $('#lightBtn').html("开启");
+                        }
+                    });
+
+                }else {
+                    $.ajax({
+                        url:'${ctx}/room/controlOff',
+                        type:'post',
+                        data:{
+                            control:4,
+                            s:i
+                        },
+                        success:function () {
+                            $('#lightBtn').html("");
+                            $('#lightBtn').html("关闭");
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+    function sss(){
+        $.ajax({
+            url:'${ctx}/room/gets',
+            type:'get',
+            success:function (data) {
+                $('#temBtn').html("");
+                $('#temBtn').html(data.ts);
+                $('#humBtn').html("");
+                $('#humBtn').html(data.hs);
+                $('#lightBtn').html("");
+                $('#lightBtn').html(data.ls);
+            }
+        });
+    }
+</script>
 
 <script src="${ctx}/static/plugins/layuiadmin/layui/layui.js"></script>
 <script>
@@ -145,8 +370,6 @@
             series: []
         };
 
-
-
         table.init('test',{
             height: 420
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度
@@ -158,13 +381,12 @@
             ,id:'roomTable'
         });
 
-
         //监听行工具事件
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'tem'){
-                var temChart = echarts.init(document.getElementById('temChartMain'));
+                var temChart = echarts.init(document.getElementById('ChartMain'));
                 temChart.setOption(option);
                 $.ajax({
                     url:'${ctx}/sensor/getTemDataWeek',
@@ -197,7 +419,7 @@
                                 // 根据名字对应到相应的系列
                                 name: '温度',
                                 type:'line',
-                                data: data.datas
+                                data: data.datum
                             }]
                         });
                         layer.open({
@@ -206,20 +428,25 @@
                             shade: false,
                             area: ['1300px', '500px'],
                             shadeClose: true, //点击遮罩关闭
-                            content: $("#temChart")
+                            content: $("#Chart")
                         });
                     }
                 });
 
             }
-            if(layEvent === 'ctem'){
-                $('#temc').html("");
-                $('#temc').html("开启");
+            if(layEvent === 'control'){
+                sss();
+                layer.open({
+                    title: '控制',
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['500px', '300px'], //宽高
+                    content: $('#control')
+                });
 
             }
-
             if(layEvent === 'hum'){
-                var temChart = echarts.init(document.getElementById('humChartMain'));
+                var temChart = echarts.init(document.getElementById('ChartMain'));
                 temChart.setOption(option);
                 $.ajax({
                     url:'${ctx}/sensor/getHumDataWeek',
@@ -252,7 +479,7 @@
                                 // 根据名字对应到相应的系列
                                 name: '湿度',
                                 type:'line',
-                                data: data.datas
+                                data: data.datum
                             }]
                         });
                         layer.open({
@@ -261,13 +488,13 @@
                             shade: false,
                             area: ['1300px', '500px'],
                             shadeClose: true, //点击遮罩关闭
-                            content: $("#humChart")
+                            content: $("#Chart")
                         });
                     }
                 });
             }
             if(layEvent === 'light'){
-                var temChart = echarts.init(document.getElementById('lightChartMain'));
+                var temChart = echarts.init(document.getElementById('ChartMain'));
                 temChart.setOption(option);
                 $.ajax({
                     url:'${ctx}/sensor/getLightDataWeek',
@@ -300,7 +527,7 @@
                                 // 根据名字对应到相应的系列
                                 name: '亮度',
                                 type:'line',
-                                data: data.datas
+                                data: data.datum
                             }]
                         });
                         layer.open({
@@ -309,7 +536,7 @@
                             shade: false,
                             area: ['1300px', '500px'],
                             shadeClose: true, //点击遮罩关闭
-                            content: $("#lightChart")
+                            content: $("#Chart")
                         });
                     }
                 });

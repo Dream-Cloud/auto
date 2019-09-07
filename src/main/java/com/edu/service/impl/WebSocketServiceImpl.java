@@ -72,7 +72,13 @@ public class WebSocketServiceImpl extends TextWebSocketHandler implements WebSoc
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         System.out.println("===========================================");
         String username = getClientId(session);
-        System.out.print("收到用户:"+username+"的消息: ");
+        String room = getRoomId(session);
+        if (username != null) {
+            System.out.print("收到用户:"+username+"的消息: ");
+        }else if (room != null){
+            System.out.print("收到用户:"+room+"的消息: ");
+        }
+
         System.out.println(message.getPayload());
         System.out.println("===========================================");
 
@@ -85,24 +91,24 @@ public class WebSocketServiceImpl extends TextWebSocketHandler implements WebSoc
      * @return
      */
     @Override
-    public boolean sendMessageToUser(String clientId, TextMessage message) {
+    public String sendMessageToUser(String clientId, TextMessage message) {
         if (users.get(clientId) == null) {
             System.out.println(clientId+"该用户未连接");
-            return false;
+            return "该用户未连接";
         }
         WebSocketSession session = users.get(clientId);
         System.out.println("sendMessage:" + session);
         if (!session.isOpen()) {
             System.out.println("会话已关闭");
-            return false;
+            return "会话已关闭";
         }
         try {
             session.sendMessage(message);
         } catch (IOException e) {
             System.out.println(e);
-            return false;
+            return "未知错误,发送失败";
         }
-        return true;
+        return "发送成功";
     }
 
     /**
@@ -131,24 +137,24 @@ public class WebSocketServiceImpl extends TextWebSocketHandler implements WebSoc
     }
 
     @Override
-    public boolean sendMessageToRoom(String roomId, TextMessage message) {
+    public String sendMessageToRoom(String roomId, TextMessage message) {
         if (rooms.get(roomId) == null) {
             System.out.println(roomId+"该宿舍未连接");
-            return false;
+            return "该宿舍未连接";
         }
         WebSocketSession session = rooms.get(roomId);
         System.out.println("sendMessage:" + session);
         if (!session.isOpen()) {
             System.out.println("会话已关闭");
-            return false;
+            return "会话已关闭";
         }
         try {
             session.sendMessage(message);
         } catch (IOException e) {
             System.out.println(e);
-            return false;
+            return "未知错误,发送失败";
         }
-        return true;
+        return "发送成功";
     }
 
     @Override

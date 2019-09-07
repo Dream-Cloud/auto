@@ -23,7 +23,7 @@
                 <dd><a href="">安全设置</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item"><button id="btn1">退出</button></li>
+        <li class="layui-nav-item"><a href="">退出</a></li>
     </ul>
 </div>
 

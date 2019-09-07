@@ -5,9 +5,17 @@ public class Student {
     private String number;
     private String password;
     private String name;
+    private String sex;
     private String phone;
     private String room;
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getPhone() {
         return phone;

@@ -57,16 +57,17 @@ public class SensorController {
     public Map<String,Object> getTemDataWeek(@RequestParam("room") String room){
         Map<String,Object> map = new HashMap<>();
         List<String> times = new ArrayList<>();
-        List<String> datas = new ArrayList<>();
+        List<String> datum = new ArrayList<>();
         String msg = "";
         List<Temperature> temperatures = sensorService.getTemDataWeek(room);
         for(Temperature t:temperatures){
             times.add(t.getTime());
-            datas.add(t.getData());
+            datum.add(t.getData());
         }
         map.put("msg",msg);
         map.put("times",times);
-        map.put("datas",datas);
+        map.put("datum",datum);
+        map.put("count",temperatures.size());
         return map;
     }
     @RequestMapping("/getHumDataWeek")
@@ -74,16 +75,16 @@ public class SensorController {
     public Map<String,Object> getHumDataWeek(@RequestParam("room") String room){
         Map<String,Object> map = new HashMap<>();
         List<String> times = new ArrayList<>();
-        List<String> datas = new ArrayList<>();
+        List<String> datum = new ArrayList<>();
         String msg = "";
         List<Humidity> humidities = sensorService.getHumDataWeek(room);
         for(Humidity t:humidities){
             times.add(t.getTime());
-            datas.add(t.getData());
+            datum.add(t.getData());
         }
         map.put("msg",msg);
         map.put("times",times);
-        map.put("datas",datas);
+        map.put("datum",datum);
         return map;
     }
     @RequestMapping("/getLightDataWeek")
@@ -91,16 +92,16 @@ public class SensorController {
     public Map<String,Object> getLightDataWeek(@RequestParam("room") String room){
         Map<String,Object> map = new HashMap<>();
         List<String> times = new ArrayList<>();
-        List<String> datas = new ArrayList<>();
+        List<String> datum = new ArrayList<>();
         String msg = "";
         List<Brightness> brightnesses = sensorService.getLightDataWeek(room);
         for(Brightness t:brightnesses){
             times.add(t.getTime());
-            datas.add(t.getData());
+            datum.add(t.getData());
         }
         map.put("msg",msg);
         map.put("times",times);
-        map.put("datas",datas);
+        map.put("datum",datum);
         return map;
     }
 }
